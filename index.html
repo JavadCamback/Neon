@@ -3,929 +3,673 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Portal</title>
+    <title>میز کار | ابزارهای کاربردی</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        !function(e,t,n){e.yektanetAnalyticsObject=n,e[n]=e[n]||function(){e[n].q.push(arguments)},e[n].q=e[n].q||[];var a=t.getElementsByTagName("head")[0],r=new Date,c="https://cdn.yektanet.com/superscript/rYs4MrHA/native-javadcamback.github.io-43476/yn_pub.js?v="+r.getFullYear().toString()+"0"+r.getMonth()+"0"+r.getDate()+"0"+r.getHours(),s=t.createElement("link");s.rel="preload",s.as="script",s.href=c,a.appendChild(s);var l=t.createElement("script");l.async=!0,l.src=c,a.appendChild(l)}(window,document,"yektanet");
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10b981',
+                        primaryDark: '#059669',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
-        
-        :root {
-            --neon-blue: #05d9e8;
-            --neon-pink: #ff2a6d;
-            --neon-purple: #d300c5;
-            --dark-bg: #05010e;
-            --darker-bg: #0d0221;
-            --nav-dark: #12092a;
+        @font-face {
+            font-family: 'Vazir';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/Vazir.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
         }
         
         body {
-            font-family: 'Orbitron', sans-serif;
-            background-color: var(--dark-bg);
-            color: white;
-            min-height: 100vh;
-            background-image: var(--bg-image, none);
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+            font-family: 'Vazir', sans-serif;
+            direction: rtl;
         }
         
-        .glitch-effect {
-            position: relative;
-            color: white;
-        }
-        
-        .glitch-effect::before, .glitch-effect::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.8;
-        }
-        
-        .glitch-effect::before {
-            color: var(--neon-blue);
-            z-index: -1;
-            animation: glitch-effect 3s infinite;
-        }
-        
-        .glitch-effect::after {
-            color: var(--neon-pink);
-            z-index: -2;
-            animation: glitch-effect 2s infinite reverse;
-        }
-        
-        @keyframes glitch-effect {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(-3px, -3px); }
-            60% { transform: translate(3px, 3px); }
-            80% { transform: translate(3px, -3px); }
-            100% { transform: translate(0); }
-        }
-        
-        .neon-text-blue {
-            color: var(--neon-blue);
-            text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-        }
-        
-        .neon-text-pink {
-            color: var(--neon-pink);
-            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
-        }
-        
-        .neon-text-purple {
-            color: var(--neon-purple);
-            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple);
-        }
-        
-        .neon-border-blue {
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 5px var(--neon-blue), inset 0 0 5px var(--neon-blue), 0 0 20px var(--neon-blue);
-        }
-        
-        .neon-border-pink {
-            border: 1px solid var(--neon-pink);
-            box-shadow: 0 0 5px var(--neon-pink), inset 0 0 5px var(--neon-pink), 0 0 20px var(--neon-pink);
-        }
-        
-        .neon-hover:hover {
-            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
-            transition: text-shadow 0.3s ease;
-        }
-        
-        .nav-item:hover {
-            transform: translateY(-2px);
-            transition: transform 0.3s ease;
-        }
-        
-        .dropdown {
+        .dropdown-content {
             display: none;
-            background: var(--nav-dark);
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 20px var(--neon-blue);
+            opacity: 0;
+            transform: translateY(-10px);
             transition: all 0.3s ease;
-            z-index: 100;
         }
         
-        .group:hover .dropdown {
+        .dropdown:hover .dropdown-content,
+        .dropdown:focus-within .dropdown-content {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
         
-        .portal-card {
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            perspective: 1000px;
-            transform-style: preserve-3d;
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
-        .portal-card:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 20px currentColor;
-        }
-        
-        .portal-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        
-        .portal-card:hover .portal-card-inner {
-            transform: rotateY(15deg) rotateX(10deg);
-        }
-        
-        .modal-overlay {
-            background: rgba(5, 1, 14, 0.9);
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal-content {
-            animation: slideIn 0.3s ease;
-            background: var(--darker-bg);
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
         }
         
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .color-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: inline-block;
-            margin: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-        
-        .color-option.selected::after {
-            content: "✓";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-weight: bold;
-        }
-        
-        .custom-color-toggle {
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-            text-align: center;
-            border: 1px dashed var(--neon-blue);
-        }
-        
-        .custom-color-toggle:hover {
-            background: rgba(5, 217, 232, 0.1);
-        }
-        
-        .custom-color-input {
-            width: 100%;
-            height: 30px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        
-        .bg-preview, .icon-preview {
-            max-width: 100%;
-            height: auto;
-            margin-top: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-        
-        .grid-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(to right, rgba(5, 217, 232, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(5, 217, 232, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .neon-underline {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .neon-underline::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.5s ease-out;
-        }
-        
-        .neon-underline:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-        
-        /* Holographic effect */
-        .holographic-effect {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .holographic-effect::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0) 45%,
-                rgba(5, 217, 232, 0.2) 50%,
-                rgba(255, 255, 255, 0) 55%
-            );
-            transform: rotate(30deg);
-            animation: holographic 6s linear infinite;
-        }
-        
-        @keyframes holographic {
-            0% { transform: translateY(-100%) rotate(30deg); }
-            100% { transform: translateY(100%) rotate(30deg); }
-        }
     </style>
 </head>
-<body class="min-h-screen relative">
-    <!-- Grid lines effect -->
-    <div class="grid-lines"></div>
-
-    <!-- Navbar -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-[#05010e]/90 backdrop-blur-md border-b border-[#12092a]">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="neon-border-pink rounded-full p-2">
-                        <i class="fas fa-terminal text-xl neon-text-pink"></i>
-                    </div>
-                    <span class="ml-3 font-bold text-xl neon-text-blue">NEON PORTAL</span>
-                </div>
-
-                <!-- Nav Items -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <div class="nav-item relative group">
-                        <button class="flex items-center space-x-1 neon-text-blue neon-underline">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                            <i class="fas fa-chevron-down text-xs"></i>
-                        </button>
-                        <div class="dropdown absolute right-0 mt-2 w-80 rounded-lg dropdown-content p-4">
-                            <h3 class="text-sm neon-text-pink mb-3 uppercase tracking-wider">Portal Management</h3>
-                            <button onclick="showAddLinkModal()"
-                                class="w-full py-2 neon-border-blue rounded flex items-center justify-center mb-3 hover:bg-[#05d9e8] hover:text-[#0d0221] transition-all">
-                                <i class="fas fa-plus mr-2"></i>Add New Portal
-                            </button>
-
-                            <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">Customization</h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <label for="bg-image" class="block mb-2 text-xs uppercase tracking-wider">Background Image URL</label>
-                                    <div class="flex">
-                                        <input type="url" id="bg-image" class="flex-grow p-2 rounded-l-lg bg-[#12092a]"
-                                            placeholder="https://example.com/image.jpg">
-                                        <button onclick="setBackgroundImage()"
-                                            class="px-3 py-2 bg-[#05d9e8] text-[#0d0221] rounded-r-lg hover:bg-[#00c4d2] transition-all">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    </div>
-                                    <div class="bg-upload-container">
-                                        <label class="block mt-2 text-xs uppercase tracking-wider">Upload Background</label>
-                                        <input type="file" id="bg-upload" class="w-full mt-1" accept="image/*">
-                                        <img id="bg-preview" class="bg-preview" src="#" alt="Background Preview">
-                                        <button onclick="applyUploadedBackground()"
-                                            class="mt-2 px-3 py-1 rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/20 transition-all text-xs">
-                                            Apply Uploaded Image
-                                        </button>
-                                    </div>
-                                    <button onclick="resetBackgroundImage()"
-                                        class="mt-2 text-xs px-3 py-1 rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/20 transition-all">
-                                        Reset Background
-                                    </button>
-                                </div>
-
-                                <div>
-                                    <label class="block mb-2 text-xs uppercase tracking-wider">Theme Color</label>
-                                    <div class="color-picker-container neon-border-blue rounded-lg p-4">
-                                        <div class="color-option selected" style="background-color: #05d9e8;"
-                                            onclick="selectThemeColor('#05d9e8', this)"></div>
-                                        <div class="color-option" style="background-color: #ff2a6d;"
-                                            onclick="selectThemeColor('#ff2a6d', this)"></div>
-                                        <div class="color-option" style="background-color: #d300c5;"
-                                            onclick="selectThemeColor('#d300c5', this)"></div>
-                                        <div class="color-option" style="background-color: #00ff9d;"
-                                            onclick="selectThemeColor('#00ff9d', this)"></div>
-                                        <div class="color-option" style="background-color: #ffcc00;"
-                                            onclick="selectThemeColor('#ffcc00', this)"></div>
-                                        <div class="color-option" style="background-color: #ff3333;"
-                                            onclick="selectThemeColor('#ff3333', this)"></div>
-                                        <div class="color-option" style="background-color: #4267B2;"
-                                            onclick="selectThemeColor('#4267B2', this)"></div>
-                                        <div class="color-option" style="background-color: #9147ff;"
-                                            onclick="selectThemeColor('#9147ff', this)"></div>
-                                        <div class="color-option" style="background-color: #25F4EE;"
-                                            onclick="selectThemeColor('#25F4EE', this)"></div>
-                                        <div class="custom-color-toggle w-full" onclick="toggleCustomColorInput()">
-                                            Custom Color
-                                        </div>
-                                        <div id="custom-color-wrapper" class="custom-color-option" style="display: none;">
-                                            <input type="color" id="custom-color" class="custom-color-input">
-                                            <button class="custom-color-confirm mt-2 px-3 py-1 rounded border border-[#05d9e8] hover:bg-[#05d9e8]/20 transition-all" onclick="confirmCustomColor()">OK</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h3 class="text-sm neon-text-blue mt-4 mb-3 uppercase tracking-wider">System Info</h3>
-                            <div class="text-xs space-y-2">
-                                <div class="flex justify-between">
-                                    <span>Version</span>
-                                    <span class="text-[#05d9e8]">v2.3.5</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Portals</span>
-                                    <span id="portal-count" class="text-[#ff2a6d]">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="nav-item relative group">
-                        <button class="flex items-center space-x-1 neon-text-blue neon-underline">
-                            <i class="fas fa-address-card"></i>
-                            <span>Contact</span>
-                            <i class="fas fa-chevron-down text-xs"></i>
-                        </button>
-                        <div class="dropdown absolute right-0 mt-2 w-72 rounded-lg dropdown-content p-4">
-                            <h3 class="text-sm neon-text-pink mb-3 uppercase tracking-wider">Connection Channels</h3>
-                            <div class="space-y-3">
-                                <div class="contact-card p-3 rounded border border-[#05d9e8] hover:bg-[#05d9e8]/10 transition-all">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-envelope text-lg text-[#05d9e8] mr-3"></i>
-                                        <div>
-                                            <h4 class="font-bold">Encrypted Mail</h4>
-                                            <a href="mailto:contact@neonportal.dev"
-                                                class="text-sm hover:underline block">contact@neonportal.dev</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="contact-card p-3 rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/10 transition-all">
-                                    <div class="flex items-center">
-                                        <i class="fab fa-discord text-lg text-[#5865F2] mr-3"></i>
-                                        <div>
-                                            <h4 class="font-bold">Discord</h4>
-                                            <span class="text-sm">NeonPortal#0001</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="contact-card p-3 rounded border border-[#25F4EE] hover:bg-[#25F4EE]/10 transition-all">
-                                    <div class="flex items-center">
-                                        <i class="fab fa-twitter text-lg text-[#1DA1F2] mr-3"></i>
-                                        <div>
-                                            <h4 class="font-bold">Twitter</h4>
-                                            <a href="https://twitter.com/neonportal" target="_blank" class="text-sm hover:underline block">@neonportal</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="contact-card p-3 rounded border border-[#9147ff] hover:bg-[#9147ff]/10 transition-all">
-                                    <div class="flex items-center">
-                                        <i class="fab fa-patreon text-lg text-[#FF424D] mr-3"></i>
-                                        <div>
-                                            <h4 class="font-bold">Support</h4>
-                                            <a href="https://patreon.com/neonportal" target="_blank" class="text-sm hover:underline block">Patreon</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="neon-text-pink text-2xl focus:outline-none">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-[#05010e] border-t border-[#ff2a6d]">
-            <div class="px-2 py-3 space-y-1">
-                <button onclick="showAddLinkModal()" class="block px-3 py-2 rounded-md neon-text-blue w-full text-left hover:bg-[#05d9e8]/20">
-                    <i class="fas fa-plus mr-2"></i>Add New Portal
-                </button>
-                <button class="block px-3 py-2 rounded-md neon-text-blue w-full text-left hover:bg-[#05d9e8]/20">
-                    <i class="fas fa-cog mr-2"></i>Settings
-                </button>
-                <button class="block px-3 py-2 rounded-md neon-text-blue w-full text-left hover:bg-[#05d9e8]/20">
-                    <i class="fas fa-address-card mr-2"></i>Contact
-                </button>
-                <div class="px-3 py-2">
-                    <label class="block text-xs neon-text-blue mb-1">Background Image</label>
-                    <div class="flex mb-2">
-                        <input type="url" id="bg-image-mobile" class="flex-grow p-2 rounded-l-lg bg-[#12092a]"
-                            placeholder="Image URL">
-                        <button onclick="setBackgroundImage()"
-                            class="px-3 py-2 bg-[#05d9e8] text-[#0d0221] rounded-r-lg hover:bg-[#00c4d2] transition-all">
-                            <i class="fas fa-check"></i>
-                        </button>
-                    </div>
-                    <button onclick="resetBackgroundImage()"
-                        class="w-full px-3 py-1.5 text-xs rounded border border-[#ff2a6d] hover:bg-[#ff2a6d]/20 transition-all">
-                        Reset Background
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main container -->
-    <div class="container mx-auto px-4 py-8 relative z-10 mt-20">
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
         <!-- Header -->
-        <header class="text-center mb-12">
-            <div class="relative inline-block">
-                <h1 class="glitch-effect text-5xl md:text-7xl font-bold mb-4" data-text="NEON PORTAL">NEON PORTAL</h1>
-                <span
-                    class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[#05d9e8] to-transparent"></span>
-                <span
-                    class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[#ff2a6d] to-transparent"></span>
+        <header class="flex justify-between items-center mb-12">
+            <h1 class="text-3xl font-bold text-primary flex items-center">
+                <i class="fas fa-desktop ml-2"></i>
+                میز کار
+            </h1>
+            <div class="relative">
+               
             </div>
-            <p class="text-xl neon-text-purple uppercase tracking-wider mt-8">Your gateway to the digital neonverse</p>
         </header>
-
-        <!-- Time and date display -->
-        <div class="flex justify-center mb-12">
-            <div class="neon-border-blue rounded-lg p-4 text-center backdrop-blur-sm bg-[#0d0221]/50 holographic-effect">
-                <div id="time" class="text-3xl font-bold neon-text-blue">00:00:00</div>
-                <div id="date" class="text-lg uppercase tracking-wider mt-1">Loading...</div>
+        
+        <!-- Main Content -->
+        <main class="fade-in">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">به میز کار خود خوش آمدید</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">ابزار مورد نظر خود را از لیست زیر انتخاب کنید</p>
             </div>
-        </div>
-
-        <!-- Portals grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-12" id="portals-grid">
-            <!-- Default portals will be added here by JavaScript -->
-        </div>
-    </div>
-
-    <!-- Add Portal Modal -->
-    <div id="add-portal-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
-        <div class="modal-content neon-border-blue rounded-xl p-8 max-w-md w-full mx-4 relative">
-            <button id="close-portal-modal"
-                class="absolute top-4 right-4 text-xl hover:text-[#ff2a6d] transition-all">×</button>
-            <h2 class="text-2xl neon-text-pink mb-6 uppercase tracking-wider">Create New Portal</h2>
-
-            <form id="portal-form" class="space-y-6">
-                <div>
-                    <label for="portal-name" class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Portal Name</label>
-                    <input type="text" id="portal-name" class="w-full p-3 rounded-lg bg-[#12092a] focus:outline-none focus:border focus:border-[#05d9e8]" required>
-                </div>
-
-                <div>
-                    <label for="portal-url"
-                        class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Destination URL</label>
-                    <input type="url" id="portal-url" class="w-full p-3 rounded-lg bg-[#12092a] focus:outline-none focus:border focus:border-[#05d9e8]" placeholder="https://"
-                        required>
-                </div>
-
-                <div>
-                    <label class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Icon</label>
-                    <select id="portal-icon" class="w-full p-3 rounded-lg bg-[#0d0221] border border-[#05d9e8] focus:outline-none focus:border focus:border-[#ff2a6d]">
-                        <option value="fab fa-youtube">YouTube</option>
-                        <option value="fab fa-twitter">Twitter</option>
-                        <option value="fab fa-github">GitHub</option>
-                        <option value="fab fa-reddit">Reddit</option>
-                        <option value="fab fa-discord">Discord</option>
-                        <option value="fab fa-facebook">Facebook</option>
-                        <option value="fab fa-google-drive">Drive</option>
-                        <option value="fas fa-envelope">Mail</option>
-                        <option value="fas fa-music">Music</option>
-                        <option value="fas fa-gamepad">Games</option>
-                        <option value="fas fa-film">Movies</option>
-                        <option value="fas fa-newspaper">News</option>
-                        <option value="fas fa-shopping-cart">Shop</option>
-                        <option value="custom-icon">Custom Icon</option>
-                    </select>
-
-                    <div id="custom-icon-options" class="custom-icon-option mt-3" style="display: none;">
-                        <div class="flex space-x-4">
-                            <div class="flex-1">
-                                <label class="block mb-2 text-xs uppercase tracking-wider">Upload Icon</label>
-                                <input type="file" id="icon-upload" class="w-full" accept="image/*">
-                            </div>
-                            <div class="flex-1">
-                                <label class="block mb-2 text-xs uppercase tracking-wider">Icon URL</label>
-                                <input type="url" id="icon-url" class="w-full p-2 rounded bg-[#0d0221]"
-                                    placeholder="https://example.com/icon.png">
-                            </div>
-                        </div>
-                        <img id="icon-preview" class="icon-preview" src="#" alt="Icon Preview">
+            
+            <!-- Tools Dropdown (Mobile) -->
+            <div class="lg:hidden mb-8">
+                <div class="dropdown relative">
+                    <button class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 flex justify-between items-center text-gray-700">
+                        <span>انتخاب ابزار</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg z-10 py-2 border border-gray-200">
+                        <a href="#" data-tool="calculator" class="block px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center">
+                            <i class="fas fa-calculator ml-2 text-primary"></i>
+                            ماشین حساب
+                        </a>
+                        <a href="#" data-tool="date-converter" class="block px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center">
+                            <i class="fas fa-calendar-alt ml-2 text-primary"></i>
+                            تبدیل تاریخ
+                        </a>
+                        <a href="#" data-tool="todo" class="block px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center">
+                            <i class="fas fa-tasks ml-2 text-primary"></i>
+                            لیست کارها
+                        </a>
+                        <a href="#" data-tool="age-calculator" class="block px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center">
+                            <i class="fas fa-birthday-cake ml-2 text-primary"></i>
+                            محاسبه سن
+                        </a>
+                        <a href="#" data-tool="timer" class="block px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center">
+                            <i class="fas fa-stopwatch ml-2 text-primary"></i>
+                            تایمر
+                        </a>
+                        <a href="#" data-tool="notes" class="block px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center">
+                            <i class="fas fa-sticky-note ml-2 text-primary"></i>
+                            یادداشت
+                        </a>
+                        <a href="#" data-tool="qrcode" class="block px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center">
+                            <i class="fas fa-qrcode ml-2 text-primary"></i>
+                            کیوآرکد ساز
+                        </a>
                     </div>
                 </div>
-
-                <div>
-                    <label class="block mb-2 neon-text-blue uppercase text-sm tracking-wider">Color</label>
-                    <div class="color-picker-container neon-border-blue rounded-lg p-4">
-                        <div class="color-option" style="background-color: #ff2a6d;"
-                            onclick="selectPortalColor('#ff2a6d', this)"></div>
-                        <div class="color-option selected" style="background-color: #05d9e8;"
-                            onclick="selectPortalColor('#05d9e8', this)"></div>
-                        <div class="color-option" style="background-color: #d300c5;"
-                            onclick="selectPortalColor('#d300c5', this)"></div>
-                        <div class="color-option" style="background-color: #00ff9d;"
-                            onclick="selectPortalColor('#00ff9d', this)"></div>
-                        <div class="color-option" style="background-color: #ffcc00;"
-                            onclick="selectPortalColor('#ffcc00', this)"></div>
-                        <div class="color-option" style="background-color: #ffffff;"
-                            onclick="selectPortalColor('#ffffff', this)"></div>
-                        <div class="color-option" style="background-color: #4267B2;"
-                            onclick="selectPortalColor('#4267B2', this)"></div>
-                        <div class="color-option" style="background-color: #9147ff;"
-                            onclick="selectPortalColor('#9147ff', this)"></div>
-                        <div class="custom-color-toggle w-full" onclick="togglePortalCustomColorInput()">
-                            Custom Color
-                        </div>
-                        <input type="color" id="portal-custom-color" class="custom-color-input"
-                            onchange="applyCustomPortalColor(this.value)">
+            </div>
+            
+            <!-- Tools Grid (Desktop) -->
+            <div class="hidden lg:grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+                <div data-tool="calculator" class="tool-card bg-white rounded-xl p-6 shadow-md cursor-pointer transition-all duration-300 border-l-4 border-primary hover:border-primaryDark">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-calculator text-4xl"></i>
                     </div>
-                    <input type="hidden" id="portal-color" value="#05d9e8">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">ماشین حساب</h3>
+                    <p class="text-gray-600">انجام محاسبات ریاضی</p>
                 </div>
-
-                <div class="flex justify-end space-x-3">
-                    <button type="button" onclick="document.getElementById('add-portal-modal').classList.add('hidden')"
-                        class="px-4 py-2 rounded-lg border border-[#ff2a6d] hover:bg-[#ff2a6d] hover:text-white transition-all">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                        class="px-6 py-2 neon-border-blue rounded-lg hover:bg-[#05d9e8] hover:text-[#0d0221] transition-all font-bold">
-                        Create Portal
-                    </button>
+                
+                <div data-tool="date-converter" class="tool-card bg-white rounded-xl p-6 shadow-md cursor-pointer transition-all duration-300 border-l-4 border-primary hover:border-primaryDark">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-calendar-alt text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">تبدیل تاریخ</h3>
+                    <p class="text-gray-600">تبدیل شمسی به میلادی و قمری</p>
                 </div>
-            </form>
-        </div>
+                
+                <div data-tool="todo" class="tool-card bg-white rounded-xl p-6 shadow-md cursor-pointer transition-all duration-300 border-l-4 border-primary hover:border-primaryDark">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-tasks text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">لیست کارها</h3>
+                    <p class="text-gray-600">مدیریت کارهای روزانه</p>
+                </div>
+                
+                <div data-tool="age-calculator" class="tool-card bg-white rounded-xl p-6 shadow-md cursor-pointer transition-all duration-300 border-l-4 border-primary hover:border-primaryDark">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-birthday-cake text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">محاسبه سن</h3>
+                    <p class="text-gray-600">محاسبه دقیق سن بر اساس تاریخ تولد</p>
+                </div>
+                
+                <div data-tool="timer" class="tool-card bg-white rounded-xl p-6 shadow-md cursor-pointer transition-all duration-300 border-l-4 border-primary hover:border-primaryDark">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-stopwatch text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">تایمر</h3>
+                    <p class="text-gray-600">تنظیم تایمر و زمان‌سنج</p>
+                </div>
+                
+                <div data-tool="notes" class="tool-card bg-white rounded-xl p-6 shadow-md cursor-pointer transition-all duration-300 border-l-4 border-primary hover:border-primaryDark">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-sticky-note text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">یادداشت</h3>
+                    <p class="text-gray-600">ثبت و مدیریت یادداشت‌ها</p>
+                </div>
+                
+                <div data-tool="qrcode" class="tool-card bg-white rounded-xl p-6 shadow-md cursor-pointer transition-all duration-300 border-l-4 border-primary hover:border-primaryDark md:col-start-2">
+                    <div class="text-primary mb-4">
+                        <i class="fas fa-qrcode text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">کیوآرکد ساز</h3>
+                    <p class="text-gray-600">تولید QR Code برای متون و لینک‌ها</p>
+                </div>
+            </div>
+            
+            <!-- Tool Content Area -->
+            <div id="tool-content" class="bg-white rounded-xl shadow-lg p-8 mb-12 min-h-96">
+                <div class="text-center py-16">
+                    <i class="fas fa-magic text-5xl text-gray-300 mb-4"></i>
+                    <h3 class="text-2xl text-gray-500 mb-2">ابزاری را انتخاب کنید</h3>
+                    <p class="text-gray-400">برای شروع از لیست بالا یک ابزار را انتخاب نمایید</p>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center py-6 text-gray-500 border-t border-gray-200">
+            <p>ممنون از شما بابت دانلود این برنامه</p>
+        </footer>
     </div>
 
     <script>
-        // Initialize default portals
-        const defaultPortals = [
-            { name: 'YouTube', url: 'https://youtube.com', icon: 'fab fa-youtube', color: '#ff0000' },
-            { name: 'Twitter', url: 'https://twitter.com', icon: 'fab fa-twitter', color: '#1DA1F2' },
-            { name: 'GitHub', url: 'https://github.com', icon: 'fab fa-github', color: '#ffffff' },
-            { name: 'Reddit', url: 'https://reddit.com', icon: 'fab fa-reddit', color: '#FF5700' },
-            { name: 'Discord', url: 'https://discord.com', icon: 'fab fa-discord', color: '#5865F2' },
-            { name: 'Google Drive', url: 'https://drive.google.com', icon: 'fab fa-google-drive', color: '#34A853' },
-            { name: 'Gmail', url: 'https://mail.google.com', icon: 'fas fa-envelope', color: '#EA4335' },
-            { name: 'Spotify', url: 'https://open.spotify.com', icon: 'fas fa-music', color: '#1DB954' }
-        ];
-        // DOM elements
-        const portalsGrid = document.getElementById('portals-grid');
-        const portalForm = document.getElementById('portal-form');
-        const portalCount = document.getElementById('portal-count');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const timeDisplay = document.getElementById('time');
-        const dateDisplay = document.getElementById('date');
-        const portalIconSelect = document.getElementById('portal-icon');
-        const customIconOptions = document.getElementById('custom-icon-options');
-        const bgUpload = document.getElementById('bg-upload');
-        const bgPreview = document.getElementById('bg-preview');
-        const iconUpload = document.getElementById('icon-upload');
-        const iconPreview = document.getElementById('icon-preview');
+        // Tool selection handler
+        const toolCards = document.querySelectorAll('[data-tool]');
+        const toolContent = document.getElementById('tool-content');
         
-        // Current state
-        let portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
-        let currentThemeColor = '#05d9e8'; // Default neon blue
-        let currentBgImage = localStorage.getItem('bgImage') || '';
+        // Sample tool content templates
+        const tools = {
+            calculator: `
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-calculator ml-2"></i>
+                        ماشین حساب
+                    </h3>
+                    <div class="bg-gray-100 rounded-lg p-4 mb-6 text-right">
+                        <div id="calc-display" class="text-3xl font-semibold py-4 px-2 text-gray-800">0</div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="7">7</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="8">8</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="9">9</button>
+                        <button class="calc-btn bg-red-500 hover:bg-red-600 text-white text-xl py-4 rounded-lg" value="C">C</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="4">4</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="5">5</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="6">6</button>
+                        <button class="calc-btn bg-primary hover:bg-primaryDark text-white text-xl py-4 rounded-lg" value="/">÷</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="1">1</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="2">2</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="3">3</button>
+                        <button class="calc-btn bg-primary hover:bg-primaryDark text-white text-xl py-4 rounded-lg" value="*">×</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value="0">0</button>
+                        <button class="calc-btn bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl py-4 rounded-lg" value=".">.</button>
+                        <button class="calc-btn bg-green-500 hover:bg-green-600 text-white text-xl py-4 rounded-lg col-span-2" value="=">=</button>
+                        <button class="calc-btn bg-primary hover:bg-primaryDark text-white text-xl py-4 rounded-lg" value="+">+</button>
+                        <button class="calc-btn bg-primary hover:bg-primaryDark text-white text-xl py-4 rounded-lg" value="-">-</button>
+                    </div>
+                </div>
+            `,
+            'date-converter': `
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-calendar-alt ml-2"></i>
+                        تبدیل تاریخ
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div>
+                            <label class="block text-gray-700 mb-2">تاریخ شمسی</label>
+                            <input type="text" id="persian-date" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="1402/01/01">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">تاریخ میلادی</label>
+                            <input type="text" id="gregorian-date" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="2023/03/21">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">تاریخ قمری</label>
+                            <input type="text" id="hijri-date" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="1444/08/30">
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-4">
+                        <button id="convert-to-gregorian" class="bg-primary hover:bg-primaryDark text-white px-6 py-2 rounded-lg transition-all duration-300">
+                            تبدیل به میلادی
+                        </button>
+                        <button id="convert-to-hijri" class="bg-primary hover:bg-primaryDark text-white px-6 py-2 rounded-lg transition-all duration-300">
+                            تبدیل به قمری
+                        </button>
+                    </div>
+                </div>
+            `,
+            todo: `
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-tasks ml-2"></i>
+                        لیست کارها
+                    </h3>
+                    <div class="flex mb-4">
+                        <input type="text" id="new-task" class="flex-1 border border-gray-300 rounded-r-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="کار جدید...">
+                        <button id="add-task" class="bg-primary hover:bg-primaryDark text-white px-6 py-2 rounded-l-lg transition-all duration-300">
+                            افزودن
+                        </button>
+                    </div>
+                    <ul id="task-list" class="divide-y divide-gray-200">
+                        <li class="py-3 px-2 flex items-center justify-between bg-gray-50 rounded-lg mb-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-5 w-5 text-primary rounded focus:ring-primary">
+                                <span class="mr-2 text-gray-700">نمونه کار شماره 1</span>
+                            </div>
+                            <button class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </li>
+                        <li class="py-3 px-2 flex items-center justify-between bg-gray-50 rounded-lg mb-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-5 w-5 text-primary rounded focus:ring-primary" checked>
+                                <span class="mr-2 text-gray-500 line-through">نمونه کار شماره 2 (انجام شده)</span>
+                            </div>
+                            <button class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            `,
+            'age-calculator': `
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-birthday-cake ml-2"></i>
+                        محاسبه سن
+                    </h3>
+                    <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2">روز</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    ${Array.from({length: 31}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">ماه</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    ${Array.from({length: 12}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">سال</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    ${Array.from({length: 100}, (_, i) => `<option value="${1444-i}">${1444-i}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <button class="bg-primary hover:bg-primaryDark text-white px-6 py-2 rounded-lg transition-all duration-300">
+                                محاسبه سن
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 text-center shadow-sm">
+                        <h4 class="text-lg font-semibold mb-2 text-gray-700">اطلاعات سنی شما</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="bg-gray-50 p-3 rounded-lg">
+                                <div class="text-3xl font-bold text-primary">32</div>
+                                <div class="text-gray-600">سال</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg">
+                                <div class="text-3xl font-bold text-primary">5</div>
+                                <div class="text-gray-600">ماه</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg">
+                                <div class="text-3xl font-bold text-primary">12</div>
+                                <div class="text-gray-600">روز</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg">
+                                <div class="text-3xl font-bold text-primary">11765</div>
+                                <div class="text-gray-600">روز در کل</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            timer: `
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-stopwatch ml-2"></i>
+                        تایمر
+                    </h3>
+                    <div class="text-center mb-8">
+                        <div class="text-6xl font-bold mb-6" id="timer-display">00:00:00</div>
+                        <div class="flex justify-center gap-4">
+                            <button id="start-timer" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg transition-all duration-300 flex items-center">
+                                <i class="fas fa-play ml-2"></i>
+                                شروع
+                            </button>
+                            <button id="stop-timer" class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-lg transition-all duration-300 flex items-center" disabled>
+                                <i class="fas fa-stop ml-2"></i>
+                                توقف
+                            </button>
+                            <button id="reset-timer" class="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-lg transition-all duration-300 flex items-center">
+                                <i class="fas fa-redo ml-2"></i>
+                                ریست
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-700">تنظیم تایمر</h4>
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2">ساعت</label>
+                                <input type="number" min="0" max="23" value="0" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">دقیقه</label>
+                                <input type="number" min="0" max="59" value="10" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">ثانیه</label>
+                                <input type="number" min="0" max="59" value="0" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <button id="set-timer" class="bg-primary hover:bg-primaryDark text-white px-6 py-2 rounded-lg transition-all duration-300">
+                                تنظیم زمان
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `,
+            notes: `
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-sticky-note ml-2"></i>
+                        یادداشت
+                    </h3>
+                    <div class="flex mb-6">
+                        <input type="text" id="note-title" class="flex-1 border border-gray-300 rounded-r-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="عنوان یادداشت...">
+                        <button id="add-note" class="bg-primary hover:bg-primaryDark text-white px-6 py-2 rounded-l-lg transition-all duration-300">
+                            افزودن
+                        </button>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="notes-container">
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg shadow-sm">
+                            <div class="flex justify-between">
+                                <h4 class="font-semibold text-gray-800">نمونه یادداشت 1</h4>
+                                <button class="text-red-400 hover:text-red-600">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            <p class="mt-2 text-gray-600">این یک نمونه یادداشت است که در سیستم نمایش داده می‌شود.</p>
+                            <div class="mt-3 text-xs text-gray-400">تاریخ: 1402/05/15</div>
+                        </div>
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg shadow-sm">
+                            <div class="flex justify-between">
+                                <h4 class="font-semibold text-gray-800">یادداشت مهم</h4>
+                                <button class="text-red-400 hover:text-red-600">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            <p class="mt-2 text-gray-600">این یک یادداشت مهم است که باید به خاطر بسپارید.</p>
+                            <div class="mt-3 text-xs text-gray-400">تاریخ: 1402/05/10</div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            qrcode: `
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-qrcode ml-2"></i>
+                        کیوآرکد ساز
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">متن یا لینک</label>
+                                <textarea id="qrcode-text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent h-32" placeholder="متن یا لینک خود را وارد نمایید"></textarea>
+                            </div>
+                            <div class="flex flex-wrap gap-4 mb-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-2">اندازه</label>
+                                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="100">100x100</option>
+                                        <option value="200" selected>200x200</option>
+                                        <option value="300">300x300</option>
+                                        <option value="400">400x400</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">رنگ</label>
+                                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="#000000">مشکی</option>
+                                        <option value="#10b981" selected>سبز</option>
+                                        <option value="#3b82f6">آبی</option>
+                                        <option value="#ef4444">قرمز</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button id="generate-qrcode" class="w-full bg-primary hover:bg-primaryDark text-white px-6 py-3 rounded-lg transition-all duration-300">
+                                تولید کیوآرکد
+                            </button>
+                        </div>
+                        <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm flex flex-col items-center justify-center">
+                            <div class="bg-gray-100 p-8 rounded-lg mb-6">
+                                <div id="qrcode-preview" class="w-48 h-48 flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-qrcode text-4xl"></i>
+                                </div>
+                            </div>
+                            <button id="download-qrcode" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-all duration-300" disabled>
+                                <i class="fas fa-download ml-2"></i>
+                                دانلود کیوآرکد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
         
-        // Initialize the app
-        document.addEventListener('DOMContentLoaded', function() {
-            renderPortals();
-            updateTime();
-            setInterval(updateTime, 1000);
-            loadBackgroundImage();
-            
-            // Mobile menu toggle
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            // Event listeners for form
-            portalForm.addEventListener('submit', handlePortalFormSubmit);
-            
-            // Show custom icon options when custom icon is selected
-            portalIconSelect.addEventListener('change', function() {
-                if (this.value === 'custom-icon') {
-                    customIconOptions.style.display = 'block';
-                } else {
-                    customIconOptions.style.display = 'none';
-                }
-            });
-            
-            // Image preview for background upload
-            bgUpload.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        bgPreview.src = event.target.result;
-                        bgPreview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-            
-            // Image preview for custom icon upload
-            iconUpload.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        iconPreview.src = event.target.result;
-                        iconPreview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
+        // Add click event to all tool cards
+        toolCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tool = card.getAttribute('data-tool');
+                toolContent.innerHTML = tools[tool];
+                
+                // Add animation class
+                toolContent.querySelector('.fade-in')?.classList.add('fade-in');
+                
+                // Initialize tool functionality if needed
+                if (tool === 'calculator') {
+                    initCalculator();
+                } else if (tool === 'timer') {
+                    initTimer();
                 }
             });
         });
         
-        // Render all portals
-        function renderPortals() {
-            portalsGrid.innerHTML = '';
+        // Calculator functionality
+        function initCalculator() {
+            const display = document.getElementById('calc-display');
+            const buttons = document.querySelectorAll('.calc-btn');
+            let currentValue = '0';
+            let firstOperand = null;
+            let operator = null;
+            let waitingForSecondOperand = false;
             
-            portals.forEach((portal, index) => {
-                const portalElement = document.createElement('div');
-                
-                // Apply the portal's color for text and border glow
-                const textColorStyle = `color: ${portal.color}; text-shadow: 0 0 5px ${portal.color}, 0 0 10px ${portal.color};`;
-                const borderStyle = `border: 1px solid ${portal.color}; box-shadow: 0 0 5px ${portal.color}, inset 0 0 5px ${portal.color}, 0 0 20px ${portal.color};`;
-                
-                portalElement.innerHTML = `
-                    <div class="portal-card h-full" style="${borderStyle}">
-                        <a href="${portal.url}" target="_blank" class="block h-full p-6 rounded-lg text-center relative overflow-hidden backdrop-blur-sm bg-[#0d0221]/50 transition-all duration-300">
-                            <div class="portal-card-inner">
-                                ${portal.icon.startsWith('http') ? 
-                                    `<img src="${portal.icon}" class="mx-auto h-12 w-12 mb-4" alt="${portal.name} icon">` : 
-                                    `<i class="${portal.icon} text-4xl mb-4" style="${textColorStyle}"></i>`}
-                                <h3 class="font-bold uppercase tracking-wider" style="${textColorStyle}">${portal.name}</h3>
-                            </div>
-                            <button onclick="deletePortal(${index}); event.preventDefault();" 
-                                class="absolute top-1 right-1 text-xs text-red-500 hover:text-red-400">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </a>
-                    </div>
-                `;
-                
-                portalsGrid.appendChild(portalElement);
+            // Update calculator display
+            function updateDisplay() {
+                display.textContent = currentValue;
+            }
+            
+            // Handle button clicks
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const value = button.getAttribute('value');
+                    
+                    if (value === 'C') {
+                        // Clear everything
+                        currentValue = '0';
+                        firstOperand = null;
+                        operator = null;
+                        waitingForSecondOperand = false;
+                    } else if (value === '=') {
+                        if (operator && !waitingForSecondOperand) {
+                            const result = calculate(firstOperand, currentValue, operator);
+                            currentValue = String(result);
+                            firstOperand = null;
+                            operator = null;
+                            waitingForSecondOperand = false;
+                        }
+                    } else if (['+', '-', '*', '/'].includes(value)) {
+                        if (operator && waitingForSecondOperand) {
+                            operator = value;
+                            return;
+                        }
+                        
+                        if (firstOperand === null) {
+                            firstOperand = currentValue;
+                        } else if (operator) {
+                            const result = calculate(firstOperand, currentValue, operator);
+                            currentValue = String(result);
+                            firstOperand = currentValue;
+                        }
+                        
+                        operator = value;
+                        waitingForSecondOperand = true;
+                    } else {
+                        if (waitingForSecondOperand) {
+                            currentValue = value;
+                            waitingForSecondOperand = false;
+                        } else {
+                            currentValue = currentValue === '0' ? value : currentValue + value;
+                        }
+                    }
+                    
+                    updateDisplay();
+                });
             });
             
-            // Update portal count
-            portalCount.textContent = portals.length;
-        }
-        
-        // Handle form submission
-        function handlePortalFormSubmit(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('portal-name').value;
-            const url = document.getElementById('portal-url').value;
-            let icon = document.getElementById('portal-icon').value;
-            const color = document.getElementById('portal-color').value;
-            
-            // Handle custom icon
-            if (icon === 'custom-icon') {
-                const iconUrl = document.getElementById('icon-url').value;
-                const iconFile = document.getElementById('icon-upload').files[0];
+            // Perform calculation
+            function calculate(a, b, op) {
+                a = parseFloat(a);
+                b = parseFloat(b);
                 
-                if (iconUrl) {
-                    icon = iconUrl;
-                } else if (iconFile) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        // Convert image to base64 to store in local storage
-                        icon = e.target.result;
-                        addPortalToArray(name, url, icon, color);
-                    };
-                    reader.readAsDataURL(iconFile);
-                    return; // Exit early as we'll call addPortalToArray in the callback
-                } else {
-                    alert('Please provide an icon URL or upload an icon');
-                    return;
+                switch (op) {
+                    case '+': return a + b;
+                    case '-': return a - b;
+                    case '*': return a * b;
+                    case '/': return a / b;
+                    default: return b;
                 }
             }
             
-            addPortalToArray(name, url, icon, color);
+            updateDisplay();
         }
         
-        // Add a new portal to the array and update UI
-        function addPortalToArray(name, url, icon, color) {
-            const newPortal = {
-                name: name,
-                url: url,
-                icon: icon,
-                color: color
-            };
+        // Timer functionality
+        function initTimer() {
+            const display = document.getElementById('timer-display');
+            const startBtn = document.getElementById('start-timer');
+            const stopBtn = document.getElementById('stop-timer');
+            const resetBtn = document.getElementById('reset-timer');
+            const setBtn = document.getElementById('set-timer');
             
-            portals.push(newPortal);
-            savePortals();
-            renderPortals();
-            document.getElementById('add-portal-modal').classList.add('hidden');
-            resetPortalForm();
-        }
-        
-        // Delete a portal
-        function deletePortal(index) {
-            if (confirm('Are you sure you want to delete this portal?')) {
-                portals.splice(index, 1);
-                savePortals();
-                renderPortals();
+            let time = 0;
+            let timer = null;
+            let isRunning = false;
+            
+            // Format time as HH:MM:SS
+            function formatTime(seconds) {
+                const h = Math.floor(seconds / 3600);
+                const m = Math.floor((seconds % 3600) / 60);
+                const s = seconds % 60;
+                
+                return [
+                    h.toString().padStart(2, '0'),
+                    m.toString().padStart(2, '0'),
+                    s.toString().padStart(2, '0')
+                ].join(':');
             }
-        }
-        
-        // Reset portal form
-        function resetPortalForm() {
-            document.getElementById('portal-form').reset();
-            customIconOptions.style.display = 'none';
-            iconPreview.style.display = 'none';
-            document.getElementById('portal-color').value = '#05d9e8';
-        }
-        
-        // Save portals to localStorage
-        function savePortals() {
-            localStorage.setItem('portals', JSON.stringify(portals));
-        }
-        
-        // Show add portal modal
-        function showAddLinkModal() {
-            document.getElementById('add-portal-modal').classList.remove('hidden');
-            mobileMenu.classList.add('hidden');
-        }
-        
-        // Update time display
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString();
-            const dateString = now.toLocaleDateString(undefined, { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
             
-            timeDisplay.textContent = timeString;
-            dateDisplay.textContent = dateString;
-        }
-        
-        // Select portal color
-        function selectPortalColor(color, element) {
-            // Remove selected class from all options
-            document.querySelectorAll('.color-picker-container .color-option').forEach(el => {
-                el.classList.remove('selected');
-            });
+            // Update timer display
+            function updateTimer() {
+                display.textContent = formatTime(time);
+            }
             
-            // Add selected class to clicked option
-            element.classList.add('selected');
-            
-            // Update hidden input value
-            document.getElementById('portal-color').value = color;
-        }
-        
-        // Select theme color
-        function selectThemeColor(color, element) {
-            // Remove selected class from all options
-            document.querySelectorAll('.dropdown .color-option').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            // Add selected class to clicked option
-            element.classList.add('selected');
-            
-            // Update current theme color
-            currentThemeColor = color;
-            updateThemeColor(color);
-        }
-        
-        // Update theme color
-        function updateThemeColor(color) {
-            // Update CSS variables
-            document.documentElement.style.setProperty('--neon-blue', color);
-            
-            // Update all elements with the neon-blue color classes
-            // This is a simplified version - in a real app you might need more comprehensive updates
-            const neonElements = document.querySelectorAll('.neon-text-blue, .neon-border-blue');
-            neonElements.forEach(el => {
-                if (el.classList.contains('neon-text-blue')) {
-                    el.style.color = color;
-                    el.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}, 0 0 20px ${color}`;
-                }
-                if (el.classList.contains('neon-border-blue')) {
-                    el.style.borderColor = color;
-                    el.style.boxShadow = `0 0 5px ${color}, inset 0 0 5px ${color}, 0 0 20px ${color}`;
+            // Start timer
+            startBtn.addEventListener('click', () => {
+                if (!isRunning) {
+                    timer = setInterval(() => {
+                        time++;
+                        updateTimer();
+                    }, 1000);
+                    isRunning = true;
+                    startBtn.disabled = true;
+                    stopBtn.disabled = false;
                 }
             });
-        }
-        
-        // Toggle custom color input in settings
-        function toggleCustomColorInput() {
-            const wrapper = document.getElementById('custom-color-wrapper');
-            wrapper.style.display = wrapper.style.display === 'none' ? 'block' : 'none';
-        }
-        
-        // Toggle custom color input in portal form
-        function togglePortalCustomColorInput() {
-            const input = document.getElementById('portal-custom-color');
-            input.style.display = input.style.display === 'none' ? 'block' : 'none';
-        }
-        
-        // Apply custom portal color
-        function applyCustomPortalColor(color) {
-            selectPortalColor(color, document.querySelector('.portal-form .color-option.selected'));
-        }
-        
-        // Confirm custom theme color
-        function confirmCustomColor() {
-            const customColor = document.getElementById('custom-color').value;
-            selectThemeColor(customColor, document.querySelector('.dropdown .color-option.selected'));
-            document.getElementById('custom-color-wrapper').style.display = 'none';
-        }
-        
-        // Set background image from URL
-        function setBackgroundImage() {
-            // Check if we're on mobile or desktop
-            const bgUrlInput = document.getElementById('bg-image-mobile') || document.getElementById('bg-image');
             
-            if (bgUrlInput && bgUrlInput.value) {
-                currentBgImage = bgUrlInput.value;
-                localStorage.setItem('bgImage', currentBgImage);
-                document.body.style.backgroundImage = `url('${currentBgImage}')`;
-            }
-        }
-        
-        // Apply uploaded background
-        function applyUploadedBackground() {
-            if (bgPreview.src && bgPreview.src !== '#') {
-                currentBgImage = bgPreview.src;
-                localStorage.setItem('bgImage', currentBgImage);
-                document.body.style.backgroundImage = `url('${currentBgImage}')`;
-            }
-        }
-        
-        // Load background image from localStorage
-        function loadBackgroundImage() {
-            if (currentBgImage) {
-                document.body.style.backgroundImage = `url('${currentBgImage}')`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundAttachment = 'fixed';
-                document.body.style.backgroundColor = 'transparent';
-            }
-        }
-        
-        // Reset background image
-        function resetBackgroundImage() {
-            currentBgImage = '';
-            localStorage.removeItem('bgImage');
-            document.body.style.backgroundImage = 'none';
-            document.body.style.backgroundColor = '#05010e';
+            // Stop timer
+            stopBtn.addEventListener('click', () => {
+                if (isRunning) {
+                    clearInterval(timer);
+                    isRunning = false;
+                    startBtn.disabled = false;
+                    stopBtn.disabled = true;
+                }
+            });
             
-            // Reset input fields
-            const bgInputs = document.querySelectorAll('[id^=bg-image]');
-            bgInputs.forEach(input => input.value = '');
+            // Reset timer
+            resetBtn.addEventListener('click', () => {
+                clearInterval(timer);
+                time = 0;
+                updateTimer();
+                isRunning = false;
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            });
             
-            if (bgPreview) bgPreview.style.display = 'none';
+            // Set timer
+            setBtn.addEventListener('click', () => {
+                const hours = parseInt(document.querySelector('#tool-content select:nth-child(1)').value) || 0;
+                const minutes = parseInt(document.querySelector('#tool-content select:nth-child(2)').value) || 0;
+                const seconds = parseInt(document.querySelector('#tool-content select:nth-child(3)').value) || 0;
+                
+                time = hours * 3600 + minutes * 60 + seconds;
+                updateTimer();
+                
+                if (isRunning) {
+                    clearInterval(timer);
+                    isRunning = false;
+                    startBtn.disabled = false;
+                    stopBtn.disabled = true;
+                }
+            });
+            
+            updateTimer();
         }
     </script>
-<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - <a href="https://enzostvs-deepsite.hf.space?remix=Shiroaki085/hubv2" style="color: #fff;text-decoration: underline;" target="_blank" >🧬 Remix</a></p></body>
+</body>
 </html>
